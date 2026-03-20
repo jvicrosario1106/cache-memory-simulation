@@ -49,7 +49,7 @@ export default function App() {
   const onStart = () => {
     stopPlaying();
     const sequence  = generateSequence(config.testCase, config.cacheBlocks);
-    const simulationResult = runBSALRU(sequence, config.cacheBlocks, WAYS_PER_SET);
+    const simulationResult = runBSALRU(sequence, config.cacheBlocks, WAYS_PER_SET, config.cacheLineWords);
     setResult(simulationResult);
     setCurrentStep(0);
     console.log(simulationResult);

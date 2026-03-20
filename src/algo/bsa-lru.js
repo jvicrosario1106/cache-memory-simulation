@@ -33,7 +33,7 @@ export function generateSequence(testCase, cacheBlocks) {
   return [];
 }
 
-export function runBSALRU(sequence, totalBlocks, waysPerSet) {
+export function runBSALRU(sequence, totalBlocks, waysPerSet, cacheLineWords) {
 
   /**
    * Example: totalBlocks=16, waysPerSet=4
@@ -162,8 +162,9 @@ export function runBSALRU(sequence, totalBlocks, waysPerSet) {
   const total = sequence.length;
   const hitRate = hits   / total;
   const missRate = misses / total;
-  const avgAccessTime = 0 // TODO: calculate the average access time
-  const totalAccessTime = 0 // TODO: calculate the total access time
+  const missPenalty = CACHE_TIME + (cacheLineWords * MEMORY_TIME) + CACHE_TIME;
+  const avgAccessTime = (hitRate * CACHE_TIME) + (missRate * missPenalty)
+  const totalAccessTime = (cacheLineWords * CACHE_TIME * hitRate) + ((CACHE_TIME + (cacheLineWords * MEMORY_TIME) + (cacheLineWords * CACHE_TIME)) * missRate)
 
   return {
     steps,
