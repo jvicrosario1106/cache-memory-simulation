@@ -1,7 +1,4 @@
-import { sequentialSequence } from './testcase.js'
-import { midRepeatSequence } from './testcase.js'
-import { randomSequence } from './testcase.js'
-import { doubleSequence } from './testcase.js'
+import { TestCase } from './testcase.js'
 
 class CacheBlock{
     constructor(id, set, data){
@@ -88,9 +85,9 @@ class BSACache {
         console.log(cacheLine)
     }
 
-    simulate(blockSequence){
-        for (let i = 0; i < blockSequence.length; i++){
-            this.readBlockData(blockSequence[i])
+    simulate(testcase){
+        for (let i = 0; i < testcase.sequence.length; i++){
+            this.readBlockData(testcase.sequence[i])
             this.printCache()
             console.log(this.replacementIDs)
         }
@@ -99,6 +96,10 @@ class BSACache {
 
 let cache = new BSACache(8, 4)
 console.log(cache.blocks + " " + cache.blocksPerSet + " " + cache.sets + " " + cache.cache.length)
-let blockSequence = doubleSequence(sequentialSequence(8))
-console.log(blockSequence)
+
+let blockSequence = new TestCase()
+blockSequence.createSequentialSequence(4,2).repeatSequence(1)
+
+console.log(blockSequence.sequence)
+
 cache.simulate(blockSequence)
