@@ -5,8 +5,7 @@ export function generateSequence(testCase, cacheBlocks) {
   const n = cacheBlocks;
 
   if (testCase === 'sequential') {
-    // Access blocks 0 → 2n-1, then repeat the whole thing once more.
-    // This intentionally exceeds the cache size to stress-test eviction.
+    // Access blocks 0 -> 2n-1, then repeat the whole thing once more.
     // Example (n=4): 0,1,2,3,4,5,6,7, 0,1,2,3,4,5,6,7
     const base = Array.from({ length: 2 * n }, (_, i) => i);
     return [...base, ...base];
@@ -14,12 +13,11 @@ export function generateSequence(testCase, cacheBlocks) {
 
   if (testCase === 'mid-repeat') {
     // Start from 0, then repeat blocks 1..n-1 in the middle before continuing to 2n-1.
-    // This creates a "warm" middle section that may hit in the second pass.
     // Example (n=4): 0,1,2,3,1,2,3,4,5,6,7, 0,1,2,3,1,2,3,4,5,6,7
     const base = [
-      ...Array.from({ length: n },     (_, i) => i),       // 0 → n-1
-      ...Array.from({ length: n - 1 }, (_, i) => i + 1),   // 1 → n-1  (middle repeat)
-      ...Array.from({ length: n },     (_, i) => i + n),   // n → 2n-1
+      ...Array.from({ length: n },     (_, i) => i),       // 0 -> n-1
+      ...Array.from({ length: n - 1 }, (_, i) => i + 1),   // 1 -> n-1  (middle repeat)
+      ...Array.from({ length: n },     (_, i) => i + n),   // n -> 2n-1
     ];
 
     return [...base, ...base];
@@ -118,7 +116,7 @@ export function runBSALRU(sequence, totalBlocks, waysPerSet) {
      * Example: block=5 (new block to load)
      * set=[
      *    { block: 3,    lastUsed: 1 } <-- Way 0
-     *    { block: null, lastUsed: 0 } <-- Way 1 (empty → use this)
+     *    { block: null, lastUsed: 0 } <-- Way 1 (empty -> use this)
      *    { block: 7,    lastUsed: 4 } <-- Way 2
      *    { block: 1,    lastUsed: 2 } <-- Way 3
      * ]
