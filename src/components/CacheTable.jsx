@@ -45,8 +45,8 @@ export const CacheTable = ({
         </table>
       </div>
 
-      <div className="sequence-divider" />
-      <SequenceViewer steps={steps} currentStep={currentStep} mode={mode} />
+      {/* <div className="sequence-divider" />
+      <SequenceViewer steps={steps} currentStep={currentStep} mode={mode} /> */}
     </section>
   );
 };
