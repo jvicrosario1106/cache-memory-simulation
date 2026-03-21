@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { generateSequence, runBSALRU } from './algo/bsa-lru';
+import { runBSAMRU } from './algo/bsa-mru';
 import './App.css';
 import { CacheTable }    from './components/CacheTable';
 import { Configuration } from './components/Configuration';
@@ -49,7 +50,7 @@ export default function App() {
   const onStart = () => {
     stopPlaying();
     const sequence  = generateSequence(config.testCase, config.cacheBlocks);
-    const simulationResult = runBSALRU(sequence, config.cacheBlocks, WAYS_PER_SET, config.cacheLineWords);
+    const simulationResult = config.algorithm === "lru" ? runBSALRU(sequence, config.cacheBlocks, WAYS_PER_SET, config.cacheLineWords) : runBSAMRU(sequence, config.cacheBlocks, WAYS_PER_SET, config.cacheLineWords);
     setResult(simulationResult);
     setCurrentStep(0);
     console.log(simulationResult);

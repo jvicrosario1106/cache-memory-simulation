@@ -164,7 +164,7 @@ export function runBSALRU(sequence, totalBlocks, waysPerSet, cacheLineWords) {
   const missRate = misses / total;
   const missPenalty = CACHE_TIME + (cacheLineWords * MEMORY_TIME) + CACHE_TIME;
   const avgAccessTime = (hitRate * CACHE_TIME) + (missRate * missPenalty)
-  const totalAccessTime = (cacheLineWords * CACHE_TIME * hitRate) + ((CACHE_TIME + (cacheLineWords * MEMORY_TIME) + (cacheLineWords * CACHE_TIME)) * missRate)
+  const totalAccessTime = (cacheLineWords * CACHE_TIME * hits) + ((CACHE_TIME + (cacheLineWords * MEMORY_TIME) + (cacheLineWords * CACHE_TIME)) * misses)
 
   return {
     steps,
@@ -173,6 +173,7 @@ export function runBSALRU(sequence, totalBlocks, waysPerSet, cacheLineWords) {
     missCount: misses,
     hitRate,
     missRate,
+    missPenalty,
     avgAccessTime,
     totalAccessTime,
     numberOfSets,

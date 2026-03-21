@@ -6,8 +6,9 @@ export const Statistics = ({ result }) => {
     { label: 'Cache Miss Count', value: result.missCount, variant: 'miss' },
     { label: 'Cache Hit Rate', value: `${(result.hitRate * 100).toFixed(2)}%`, variant: 'hit' },
     { label: 'Cache Miss Rate', value: `${(result.missRate * 100).toFixed(2)}%`, variant: 'miss' },
-    { label: 'Avg Access Time', value: `${result.avgAccessTime.toFixed(4)} ns` },
-    { label: 'Total Access Time', value: `${result.totalAccessTime} ns` },
+    { label: 'Miss Penalty', value: `${result.missPenalty.toFixed(2)} ns` },
+    { label: 'Avg Access Time', value: `${result.avgAccessTime.toFixed(2)} ns` },
+    { label: 'Total Access Time', value: `${result.totalAccessTime.toFixed(2)} ns` },
   ];
 
   return (
