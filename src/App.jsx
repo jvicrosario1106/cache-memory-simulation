@@ -19,10 +19,10 @@ export default function App() {
     algorithm: 'lru',
   });
 
-  const [result, setResult]           = useState(null);
+  const [result, setResult] = useState(null);
   const [currentStep, setCurrentStep] = useState(0);
-  const [isPlaying, setIsPlaying]     = useState(false);
-  const [isDark, setIsDark]           = useState(() => window.matchMedia('(prefers-color-scheme: dark)').matches);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [isDark, setIsDark] = useState(() => window.matchMedia('(prefers-color-scheme: dark)').matches);
 
   const intervalRef = useRef(null);
 
