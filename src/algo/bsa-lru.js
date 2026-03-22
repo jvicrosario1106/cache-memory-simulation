@@ -1,5 +1,9 @@
 import { MEMORY_BLOCKS, CACHE_TIME, MEMORY_TIME } from '../constant.js';
 
+/*
+* This function generates a sequence of block addresses based on the test case and cache blocks.
+* The test case can be 'sequential', 'mid-repeat', or 'random'.
+*/
 export function generateSequence(testCase, cacheBlocks) {
   // n is the number of blocks in the cache
   const n = cacheBlocks;
