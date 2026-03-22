@@ -2,16 +2,14 @@
 
 ## 2n * 2 Sequential
 
-| Cache |         |           | Memory |       | Cache  |       | Cache  | Avg     | Total   |
-| Line  | Cache   |           | Access | Cache | Hit    | Cache | Miss   | Access  | Access  |
-| Size  | Blocks  | Algorithm | Count  | Hits  | Rate   | Miss  | Rate   | Time    | Time    |
-| ----- | ------- | --------- | ------ | ----- | ------ | ----- | ------ | ------- | ------- |
-| 4     | 8       | BSA + LRU | 32     | 0     | 0.00%  | 32    | 100.0% | 42.00   | 1440.00 |
-| 4     | 8       | BSA + MRU | 32     | 8     | 25.00% | 24    | 75.00% | 31.75   | 1112.00 |
-| 4     | 16      | BSA + LRU | 64     | 0     | 0.00%  | 64    | 100.0% | 42.00   | 1440.00 |
-| 4     | 16      | BSA + MRU | 64     | 16    | 25.00% | 48    | 75.00% | 31.75   | 1112.00 |
-| 4     | 32      | BSA + LRU | 128    | 0     | 0.00%  | 128   | 100.0% | 42.00   | 1440.00 |
-| 4     | 32      | BSA + MRU | 128    | 32    | 25.00% | 96    | 75.00% | 31.75   | 1112.00 |
+| Cache Line Size  | Cache Blocks  | Algorithm | Memory Access Count  | Cache Hits  | Cache Hit Rate   | Cache Miss  | Cache Miss Rate   | Avg Access Time (ns) | Total Access Time (ns) |
+| ----- | ------- | --------- | ------ | ----- | ------ | ----- | ------- | ------- | ------- |
+| 4     | 8       | BSA + LRU | 32     | 0     | 0.00%  | 32    | 100.00% | 42.00   | 1440.00 |
+| 4     | 8       | BSA + MRU | 32     | 8     | 25.00% | 24    | 75.00%  | 31.75   | 1112.00 |
+| 4     | 16      | BSA + LRU | 64     | 0     | 0.00%  | 64    | 100.00% | 42.00   | 1440.00 |
+| 4     | 16      | BSA + MRU | 64     | 16    | 25.00% | 48    | 75.00%  | 31.75   | 1112.00 |
+| 4     | 32      | BSA + LRU | 128    | 0     | 0.00%  | 128   | 100.00% | 42.00   | 1440.00 |
+| 4     | 32      | BSA + MRU | 128    | 32    | 25.00% | 96    | 75.00%  | 31.75   | 1112.00 |
 
 Fig 1. Tabular results of 2n * 2 Sequence
 
