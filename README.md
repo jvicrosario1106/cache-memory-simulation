@@ -17,7 +17,7 @@ In this sequence, it can be observed that BSA + LRU does not make any hits when 
 
 For example, if n = 4, the pattern generated would be [0, 1, 2, 3, 4, 5, 6, 7, 0, 1, 2, 3, 4, 5, 6, 7] and with the cache blocks also equal to 4 in a 4-way BSA algorithm, that means there will be 2 blocks assigned per 1 cache block in a set. This can be visualized by the table below:
 
-|          | Way 0    | Way 1    | Way 3    | Way 4    |
+|          | Way 0    | Way 1    | Way 2    | Way 3    |
 | -------- | -------- | -------- | -------- | -------- |
 | Set 0    | 0, 4     | 1, 5     | 2, 6     | 3, 7     |
 
@@ -25,7 +25,7 @@ As confirmed by running the simulation, the first quarter of the sequence [0, 1,
 
 For this sequence to have a hit, it is recommended to have the cache blocks equal or more than n because this means that not all cache blocks in the set will be overcrowded by multiple blocks. For example, if n = 4 and cache blocks = 8 in a 4-way BSA, then each set can evenly distribute the two blocks available. The table can be visualized in this way:
 
-|          | Way 0    | Way 1    | Way 3    | Way 4    |
+|          | Way 0    | Way 1    | Way 2    | Way 3    |
 | -------- | -------- | -------- | -------- | -------- |
 | Set 0    | 0        | 1        | 2        | 3        |
 | Set 1    | 4        | 5        | 6        | 7        |
@@ -34,13 +34,13 @@ On the other hand, the BSA + MRU will always have a 25% hit rate. This is due to
 
 As can be observed in the simulation where n = 4, it will hit n times because the repetition sequence assures that the untouched blocks will always be checked before it starts replacing one block again. The table demonstrates this sequence:
 
-|          | Way 0    | Way 1    | Way 3    | Way 4                 |
+|          | Way 0    | Way 1    | Way 2    | Way 3                 |
 | -------- | -------- | -------- | -------- | --------------------- |
 | Set 0    | 0        | 1        | 2        | ~3~, ~4~, ~5~, ~6~, 7 |
 
 During the repetition cycle, it will hit [0, 1, 2] before it starts replacing Set 0, Way 2 because it’s the most recently used block for when block 2 was hit. Then it starts having cache hits again until the next sequence ends. This can be shown in the table below where [7] is hit.
 
-|          | Way 0    | Way 1    | Way 3                 | Way 4    |
+|          | Way 0    | Way 1    | Way 2                 | Way 3    |
 | -------- | -------- | -------- | --------------------- | -------- |
 | Set 0    | 0        | 1        | ~2~, ~3~, ~4~, ~5~, 6 | 7        |
 
@@ -57,7 +57,45 @@ Overall, BSA + MRU has a better performance than BSA + LRU for this 2n * 2 seque
 | 4     | 32      | BSA + LRU | 190    | 62    | 32.63%   | 128   | 67.37%   | 28.62   | 6008.00  |
 | 4     | 32      | BSA + MRU | 190    | 86    | 45.26%   | 104   | 54.74%   | 23.44   | 5024.00  |
 
+_Fig 2. Tabular results of Mid Repeat 2x Sequence_
 
+Mid Repeat 2x Sequence creates a sequence that assures that a portion of the quarter sequence will be hit before getting replaced by new blocks. For example, if n = 4, it creates a half sequence of [0, 1, 2, 3, 1, 2, 3, 4, 5, 6, 7] which will then be repeated. This information is important as it determines the cache blocks that will always hit and which ones will be replaced.
+
+For BSA + LRU, it assures that the repeated middle section of the sequence is hit before it gets replaced by new cache blocks. This is visualized through this table:
+
+|          | Way 0    | Way 1       | Way 2       | Way 3       |
+| -------- | -------- | ----------- | ----------- | ----------- |
+| Set 0    | ~0~, 4   | ~1~, ~1~, 5 | ~2~, ~2~, 6 | ~3~, ~3~, 7 |
+
+In this sequence, the middle portion 1 to n-1 [1, 2, 3] gets hit first before the set gets replaced by the latter sequence of [4, 5, 6, 7]. This suggests that doing this pattern twice will yield a total of 6 hits for this sequence example. This happens because the cache blocks that are repeated are still within n blocks which means those blocks are not overridden yet until the latter quarter of the sequence.
+
+For BSA + MRU it hits a few more blocks than its LRU counterpart for the same reason of having a better “foresight” of replacing the data of one cache block. This table visualizes how BSA + MRU retains some cache blocks and anticipates more repeated calls:
+
+|          | Way 0    | Way 1   | Way 2   | Way 3       |
+| -------- | -------- | ------- | ------- | ----------- |
+| Set 0    | 0        | 1, 1    | 2, 2    | ~3~, ~3~, ~4~, ~5~, ~6~, 7 |
+
+It then repeats the process hitting the first and last cache blocks of the sequence. This process adds a few more hits compared to LRU because of hitting the repeated middle cache blocks [1, 2, 3] but also the first and last cache blocks that are not replaced [0, 7]. This table demonstrates how BSA + MRU does it for this example:
+
+|          | Way 0    | Way 1       | Way 2                      | Way 3 |
+| -------- | -------- | ----------- | -------------------------- | ------- |
+| Set 0    | 0        | ~1~, ~1~, 2 | ~2~, ~3~, ~3~, ~4~, ~5~, 6 | 7       |
+
+As shown above, BSA + MRU algorithm continues to support the evidence of being an exemplary algorithm when provided a patterned sequence. Even though its LRU counterpart hits a few blocks, the replacement of the multiple cache blocks remains a problem because it erases the history of the cache block in essence and puts in a new one which the pattern will not hit during the repetition of the sequence. 
+
+Thus, as observed in the comparison table, there is still a margin of difference in their average and total access time across varying number of cache blocks. BSA + MRU consistently exceeds the difference in the access time by 16%.
+
+## Random (64 blocks)
+
+For both BSA + LRU and BSA + MRU, there is really no significant difference between the results of their average and total access times since there is really no predictor or pattern on which cache block will be called next. With a memory block set at 1024 (210) main memory block, there is a 1/210 or less than 1% chance that the same cache block will be called twice.
+
+BSA + MRU algorithm’s usual observed anticipatory behavior is also rendered unserviceable at this scenario because it all comes down to having the same chances as its LRU counterpart. Erasing the entire cache block and replacing them with new data has the same odds as erasing one cache block. Both scenarios essentially wait for a repeat cache block call to occur where randomization cannot assure. 
+
+Thus, in this sequence, both average and total access times are closer in value with 0-1% difference. This is essentially dependent on how “lucky” one algorithm is in getting a repeat cache block call that is still stored in the cache.
+
+## Conclusion
+
+To summarize, BSA + MRU has a better performance compared to BSA + LRU for patterned sequences like sequential and mid-repeat sequences. The comparison table demonstrates the difference in average and total access time by a margin of 16-23% with the highest performance gained for the 2n * 2 sequential sequence. It leverages MRU’s replacement algorithm which minimizes the replaced blocks per set creating an observed anticipatory behavior for repeated calls. However, both LRU and MRU algorithms almost have the same performance with minimal differences or gains for completely randomized sequences within a large number of main memory blocks.
 
 # Website Features
 
