@@ -112,6 +112,8 @@ To summarize, BSA + MRU has a better performance compared to BSA + LRU for patte
 
 ![Website](./src/assets/Site.png)
 
+The website can be accessed through this link: [https://cache-memory-simulation-mu.vercel.app/](https://cache-memory-simulation-mu.vercel.app/).
+
 ## Config
 
 ![Config](./src/assets/Config.png)
@@ -194,14 +196,15 @@ This table shows the history of the simulation sequence for each accesses made. 
 
 [Video Walkthrough](https://www.youtube.com/watch?v=k4wdMjGY5P8)
 
-1. Set the Cache Line Size. This will determine the miss penalty and will have an effect on the average and total access times.
-2. Set the Cache Blocks. This will determine n for sequences that require n like Sequential (2n, x2). This also determines how many blocks are in the set and how many blocks are there overall in the cache.
-3. Set the Test Sequence. This will determine what sequence will be used for the simulation.
-4. Choose an Algorithm.
-5. Set the View Mode.
-6. Press Start.
-7. If you chose Step-by-Step for the View Mode in Step #5, then you can use the controller to scrub through the simulation.
-8. Once done, try new configurations and restart the simuation to see the results.
+1. Go to this [site](https://cache-memory-simulation-mu.vercel.app/)
+2. Set the Cache Line Size. This will determine the miss penalty and will have an effect on the average and total access times.
+3. Set the Cache Blocks. This will determine n for sequences that require n like Sequential (2n, x2). This also determines how many blocks are in the set and how many blocks are there overall in the cache.
+4. Set the Test Sequence. This will determine what sequence will be used for the simulation.
+5. Choose an Algorithm.
+6. Set the View Mode.
+7. Press Start.
+8. If you chose Step-by-Step for the View Mode in Step #5, then you can use the controller to scrub through the simulation.
+9. Once done, try new configurations and restart the simuation to see the results.
 
 # Misc
 
