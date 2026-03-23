@@ -96,6 +96,8 @@ Thus, as observed in the comparison table, there is still a margin of difference
 | 4     | 32      | BSA + LRU | 64     | 1     | 1.56%    | 63    | 98.44%   | 41.36   | 2839.00  |
 | 4     | 32      | BSA + MRU | 64     | 2     | 3.13%    | 62    | 96.88%   | 40.72   | 2798.00  |
 
+_Fig 3. Tabular results of Random (64 blocks) Sequence_
+
 For both BSA + LRU and BSA + MRU, there is really no significant difference between the results of their average and total access times since there is really no predictor or pattern on which cache block will be called next. With a memory block set at 1024 (210) main memory block, there is a 1/210 or less than 1% chance that the same cache block will be called twice.
 
 BSA + MRU algorithm’s usual observed anticipatory behavior is also rendered unserviceable at this scenario because it all comes down to having the same chances as its LRU counterpart. Erasing the entire cache block and replacing them with new data has the same odds as erasing one cache block. Both scenarios essentially wait for a repeat cache block call to occur where randomization cannot assure. 
@@ -108,9 +110,89 @@ To summarize, BSA + MRU has a better performance compared to BSA + LRU for patte
 
 # Website Features
 
-![Alt text](./src/assets/hero.png)
+![Website](./src/assets/Site.png)
 
-# React + Vite
+## Config
+
+![Config](./src/assets/Config.png)
+
+This contains the settings that will be used for the cache simulation. Users can set the Cache Line Size, Cache Blocks, Test Sequence, Algorithm and View Mode here before starting the simulation.
+
+### Config Cache Line Size
+
+![Config-CacheLineSize](./src/assets/Config-CacheLineSize.png)
+
+Available in from 2 to 64 words which affects the miss penalty and the access time calculations of the simulation.
+
+### Cache Blocks
+
+![Config-CacheBlocks](./src/assets/Config-CacheBlocks.png)
+
+This usually determines n for the simulation patterns and how the blocks will be in sets of 4. Available from 4 to 128 blocks.
+
+### Test Sequence
+
+![Config-TestSequence](./src/assets/Config-TestSequence.png)
+
+This sets the test case sequence that will be used for the simulation. Available ones are Sequential (2n, x2) where n is the number of cache blocks set, Mid Repeat Sequence (x2) which also depends on the cache blocks set and Random (64 blocks) which is a fixed 64 block call from 1024 main memory blocks set as a constant.
+
+### Algorithm
+
+![Config-Algorithm](./src/assets/Config-Algorithm.png)
+
+This determines which cache algorithm will be used for the simulation. Available in BSA + LRU and BSA + MRU.
+
+### View Mode
+
+![Config-ViewMode](./src/assets/Config-ViewMode.png)
+
+Two view modes are available: Step-by-Step which allows the user to see the cache blocks call one by one from start to end of the simulation and Final Snapshot which allows the user to just see the result of teh cache at the end of the simulation.
+
+### Constants
+
+![Config-Contants](./src/assets/Config-Constants.png)
+
+This section shows the constant variables for the simulation including: Main Memory Block = 1024 blocks, Associativity = 4-way, Sets = automatically updated depending on the number cache blocks set by the users and Cache Size = automatically updated depending on the cache line size and cache blocks set. These are used for the calculation of the stats and for the test sequence.
+
+## Stats
+
+![Stats](./src/assets/Stats.png)
+
+This shows the current state of the cache simulation with the number memory accesses, cache hits, cache misses, cache hit rate and cache miss rate. This also has the calculation for the miss penalty dependent on the cache line size, average access time and total access time.
+
+## Cache Simulator
+
+![Config-CacheSim](./src/assets/CacheSim.png)
+
+This simulates the memory accesses, cache hits and cache misses of the sequence. If users are in Step-by-Step mode, they have the ability to scrub through the simulation using the controls provided.
+
+### Cache State
+
+![CacheSim-CacheState](./src/assets/CacheSim-CacheState.png)
+
+This shows the current step of the cache simulation, the feedback log on whether the access was a cache hit or miss, where the block is stored and during misses, it also shows which cache block got evicted.
+
+### Controller
+
+![CacheSim-Controller](./src/assets/CacheSim-Controller.png)
+
+If users are in Step-by-Step mode, this will be available for them to take control on when to pause, play, move forward, move backward, move to start and move to end in the simulation sequence.
+
+### Cache Table
+
+![CacheSim-Table](./src/assets/CacheSim-Table.png)
+
+This is the simulated cache with the sets and the blocks labelled as Sets on the first column and Ways on the first row. This shows how the blocks get accessed and replaced. The result should be the final snapshot of the cache simulation for the given sequence based on the Trace Log.
+
+## Trace Log
+
+![TraceLog](./src/assets/TraceLog.png)
+
+This table shows the history of the simulation sequence for each accesses made. It stores the following information: # of the sequence, block accessed, set and way stored/found, result if it's a cache hit or miss, evicted block if it misses, and # of hits and misses currently at that call.
+
+# Misc
+
+## React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
@@ -119,12 +201,12 @@ Currently, two official plugins are available:
 - [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
 - [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
 
-## React Compiler
+### React Compiler
 
 The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
 
 Note: This will impact Vite dev & build performances.
 
-## Expanding the ESLint configuration
+### Expanding the ESLint configuration
 
 If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
