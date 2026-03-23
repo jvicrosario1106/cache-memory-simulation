@@ -77,7 +77,7 @@ For BSA + MRU it hits a few more blocks than its LRU counterpart for the same re
 
 It then repeats the process hitting the first and last cache blocks of the sequence. This process adds a few more hits compared to LRU because of hitting the repeated middle cache blocks [1, 2, 3] but also the first and last cache blocks that are not replaced [0, 7]. This table demonstrates how BSA + MRU does it for this example:
 
-|          | Way 0    | Way 1       | Way 2                      | Way 3 |
+|          | Way 0    | Way 1       | Way 2                      | Way 3   |
 | -------- | -------- | ----------- | -------------------------- | ------- |
 | Set 0    | 0        | ~1~, ~1~, 2 | ~2~, ~3~, ~3~, ~4~, ~5~, 6 | 7       |
 
@@ -86,6 +86,15 @@ As shown above, BSA + MRU algorithm continues to support the evidence of being a
 Thus, as observed in the comparison table, there is still a margin of difference in their average and total access time across varying number of cache blocks. BSA + MRU consistently exceeds the difference in the access time by 16%.
 
 ## Random (64 blocks)
+
+| Cache Line Size  | Cache Blocks  | Algorithm | Memory Access Count  | Cache Hits  | Cache Hit Rate   | Cache Miss  | Cache Miss Rate   | Avg Access Time (ns) | Total Access Time (ns) |
+| ----- | ------- | --------- | ------ | ----- | -------- | ----- | -------- | ------- | -------- |
+| 4     | 8       | BSA + LRU | 64     | 0     | 0.00%    | 64    | 100.00%  | 42.00   | 2880.00  |
+| 4     | 8       | BSA + MRU | 64     | 0     | 0.00%    | 64    | 100.00%  | 42.00   | 2880.00  |
+| 4     | 16      | BSA + LRU | 64     | 1     | 1.56%    | 63    | 98.44%   | 41.36   | 2839.00  |
+| 4     | 16      | BSA + MRU | 64     | 2     | 3.13%    | 62    | 96.88%   | 40.72   | 2798.00  |
+| 4     | 32      | BSA + LRU | 64     | 1     | 1.56%    | 63    | 98.44%   | 41.36   | 2839.00  |
+| 4     | 32      | BSA + MRU | 64     | 2     | 3.13%    | 62    | 96.88%   | 40.72   | 2798.00  |
 
 For both BSA + LRU and BSA + MRU, there is really no significant difference between the results of their average and total access times since there is really no predictor or pattern on which cache block will be called next. With a memory block set at 1024 (210) main memory block, there is a 1/210 or less than 1% chance that the same cache block will be called twice.
 
