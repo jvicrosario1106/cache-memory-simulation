@@ -190,6 +190,19 @@ This is the simulated cache with the sets and the blocks labelled as Sets on the
 
 This table shows the history of the simulation sequence for each accesses made. It stores the following information: # of the sequence, block accessed, set and way stored/found, result if it's a cache hit or miss, evicted block if it misses, and # of hits and misses currently at that call.
 
+# How To Use
+
+[Video Walkthrough](https://www.youtube.com/watch?v=k4wdMjGY5P8)
+
+1. Set the Cache Line Size. This will determine the miss penalty and will have an effect on the average and total access times.
+2. Set the Cache Blocks. This will determine n for sequences that require n like Sequential (2n, x2). This also determines how many blocks are in the set and how many blocks are there overall in the cache.
+3. Set the Test Sequence. This will determine what sequence will be used for the simulation.
+4. Choose an Algorithm.
+5. Set the View Mode.
+6. Press Start.
+7. If you chose Step-by-Step for the View Mode in Step #5, then you can use the controller to scrub through the simulation.
+8. Once done, try new configurations and restart the simuation to see the results.
+
 # Misc
 
 ## React + Vite
