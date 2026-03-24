@@ -1,6 +1,5 @@
 import { useRef } from 'react';
 
-
 export const SequenceViewer = ({ steps, currentStep, mode }) => {
   const activeRef  = useRef(null);
   const wrapperRef = useRef(null);

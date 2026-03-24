@@ -12,7 +12,7 @@ export function runBSAMRU(sequence, totalBlocks, waysPerSet, cacheLineWords){
       /**
        * 2D array representing the cache: cache[setIndex][wayIndex]
        * - block:    memory block number stored in this way (null = empty)
-       * - lastUsed: logical timestamp of the last access (used for LRU ordering)
+       * - lastUsed: logical timestamp of the last access (used for MRU ordering)
        *
        * Example — 4 sets, 4 ways (totalBlocks=16, waysPerSet=4):
        * [
@@ -90,14 +90,15 @@ export function runBSAMRU(sequence, totalBlocks, waysPerSet, cacheLineWords){
         const emptyIndex = set.findIndex(way => way.block === null);
     
         /**
+         * 
          * Example: block=5, all ways full
          * set=[
-         *    { block: 3, lastUsed: 1 } <-- Way 0 (LRU — evict this)
+         *    { block: 3, lastUsed: 1 } <-- Way 0 
          *    { block: 9, lastUsed: 3 } <-- Way 1
-         *    { block: 7, lastUsed: 4 } <-- Way 2
+         *    { block: 7, lastUsed: 4 } <-- Way 2 (MRU — evict this)
          *    { block: 1, lastUsed: 2 } <-- Way 3
          * ]
-         * Result: targetIndex = 0  (Way 0 has smallest lastUsed=1, evict block 3, load block 5)
+         * Result: targetIndex = 2  (Way 2 has highest lastUsed=4, evict block 7, load block 5)
          */
         const targetIndex =
           emptyIndex !== -1

@@ -1,8 +1,5 @@
-import { SequenceViewer } from './SequenceViewer';
-
 export const CacheTable = ({
   snapshot, waysPerSet, activeSet, activeWay, isHit,
-  steps, currentStep, mode,
 }) => {
   
   if (!snapshot || snapshot.length === 0) return null;
@@ -44,9 +41,6 @@ export const CacheTable = ({
           </tbody>
         </table>
       </div>
-
-      {/* <div className="sequence-divider" />
-      <SequenceViewer steps={steps} currentStep={currentStep} mode={mode} /> */}
     </section>
   );
 };

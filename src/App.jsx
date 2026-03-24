@@ -1,12 +1,13 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { generateSequence, runBSALRU } from './algo/bsa-lru';
+import { runBSALRU } from './algo/bsa-lru';
 import { runBSAMRU } from './algo/bsa-mru';
+import { generateSequence } from './algo/test-case.js';
 import './App.css';
-import { CacheTable }    from './components/CacheTable';
+import { CacheTable } from './components/CacheTable';
 import { Configuration } from './components/Configuration';
-import { Statistics }    from './components/Statistics.jsx';
-import { StepControls }  from './components/StepControls';
-import { TraceLog }      from './components/TraceLog';
+import { Statistics } from './components/Statistics.jsx';
+import { StepControls } from './components/StepControls';
+import { TraceLog } from './components/TraceLog';
 import { WAYS_PER_SET } from './constant.js';
 
 export default function App() {
