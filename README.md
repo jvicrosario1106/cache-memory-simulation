@@ -1,3 +1,101 @@
+# Website Features
+
+![Website](./src/assets/Site.png)
+
+The website can be accessed through this link: [https://cache-memory-simulation-mu.vercel.app/](https://cache-memory-simulation-mu.vercel.app/).
+
+## Config
+
+![Config](./src/assets/Config.png)
+
+This contains the settings that will be used for the cache simulation. Users can set the Cache Line Size, Cache Blocks, Test Sequence, Algorithm and View Mode here before starting the simulation.
+
+### Config Cache Line Size
+
+![Config-CacheLineSize](./src/assets/Config-CacheLineSize.png)
+
+Available in from 2 to 64 words which affects the miss penalty and the access time calculations of the simulation.
+
+### Cache Blocks
+
+![Config-CacheBlocks](./src/assets/Config-CacheBlocks.png)
+
+This usually determines n for the simulation patterns and how the blocks will be in sets of 4. Available from 4 to 128 blocks.
+
+### Test Sequence
+
+![Config-TestSequence](./src/assets/Config-TestSequence.png)
+
+This sets the test case sequence that will be used for the simulation. Available ones are Sequential (2n, x2) where n is the number of cache blocks set, Mid Repeat Sequence (x2) which also depends on the cache blocks set and Random (64 blocks) which is a fixed 64 block call from 1024 main memory blocks set as a constant.
+
+### Algorithm
+
+![Config-Algorithm](./src/assets/Config-Algorithm.png)
+
+This determines which cache algorithm will be used for the simulation. Available in BSA + LRU and BSA + MRU.
+
+### View Mode
+
+![Config-ViewMode](./src/assets/Config-ViewMode.png)
+
+Two view modes are available: Step-by-Step which allows the user to see the cache blocks call one by one from start to end of the simulation and Final Snapshot which allows the user to just see the result of teh cache at the end of the simulation.
+
+### Constants
+
+![Config-Contants](./src/assets/Config-Constants.png)
+
+This section shows the constant variables for the simulation including: Main Memory Block = 1024 blocks, Associativity = 4-way, Sets = automatically updated depending on the number cache blocks set by the users and Cache Size = automatically updated depending on the cache line size and cache blocks set. These are used for the calculation of the stats and for the test sequence.
+
+## Stats
+
+![Stats](./src/assets/Stats.png)
+
+This shows the current state of the cache simulation with the number memory accesses, cache hits, cache misses, cache hit rate and cache miss rate. This also has the calculation for the miss penalty dependent on the cache line size, average access time and total access time.
+
+## Cache Simulator
+
+![Config-CacheSim](./src/assets/CacheSim.png)
+
+This simulates the memory accesses, cache hits and cache misses of the sequence. If users are in Step-by-Step mode, they have the ability to scrub through the simulation using the controls provided.
+
+### Cache State
+
+![CacheSim-CacheState](./src/assets/CacheSim-CacheState.png)
+
+This shows the current step of the cache simulation, the feedback log on whether the access was a cache hit or miss, where the block is stored and during misses, it also shows which cache block got evicted.
+
+### Controller
+
+![CacheSim-Controller](./src/assets/CacheSim-Controller.png)
+
+If users are in Step-by-Step mode, this will be available for them to take control on when to pause, play, move forward, move backward, move to start and move to end in the simulation sequence.
+
+### Cache Table
+
+![CacheSim-Table](./src/assets/CacheSim-Table.png)
+
+This is the simulated cache with the sets and the blocks labelled as Sets on the first column and Ways on the first row. This shows how the blocks get accessed and replaced. The result should be the final snapshot of the cache simulation for the given sequence based on the Trace Log.
+
+## Trace Log
+
+![TraceLog](./src/assets/TraceLog.png)
+
+This table shows the history of the simulation sequence for each accesses made. It stores the following information: # of the sequence, block accessed, set and way stored/found, result if it's a cache hit or miss, evicted block if it misses, and # of hits and misses currently at that call.
+
+# How To Use
+
+[Video Walkthrough](https://www.youtube.com/watch?v=k4wdMjGY5P8)
+
+1. Go to this [site](https://cache-memory-simulation-mu.vercel.app/)
+2. Set the Cache Line Size. This will determine the miss penalty and will have an effect on the average and total access times.
+3. Set the Cache Blocks. This will determine n for sequences that require n like Sequential (2n, x2). This also determines how many blocks are in the set and how many blocks are there overall in the cache.
+4. Set the Test Sequence. This will determine what sequence will be used for the simulation.
+5. Choose an Algorithm.
+6. Set the View Mode.
+7. Press Start.
+8. If you chose Step-by-Step for the View Mode in Step #5, then you can use the controller to scrub through the simulation.
+9. Once done, try new configurations and restart the simuation to see the results.
+
 # Algorithm Analysis
 
 ## 2n * 2 Sequential
@@ -107,104 +205,6 @@ Thus, in this sequence, both average and total access times are closer in value 
 ## Conclusion
 
 To summarize, BSA + MRU has a better performance compared to BSA + LRU for patterned sequences like sequential and mid-repeat sequences. The comparison table demonstrates the difference in average and total access time by a margin of 16-23% with the highest performance gained for the 2n * 2 sequential sequence. It leverages MRU’s replacement algorithm which minimizes the replaced blocks per set creating an observed anticipatory behavior for repeated calls. However, both LRU and MRU algorithms almost have the same performance with minimal differences or gains for completely randomized sequences within a large number of main memory blocks.
-
-# Website Features
-
-![Website](./src/assets/Site.png)
-
-The website can be accessed through this link: [https://cache-memory-simulation-mu.vercel.app/](https://cache-memory-simulation-mu.vercel.app/).
-
-## Config
-
-![Config](./src/assets/Config.png)
-
-This contains the settings that will be used for the cache simulation. Users can set the Cache Line Size, Cache Blocks, Test Sequence, Algorithm and View Mode here before starting the simulation.
-
-### Config Cache Line Size
-
-![Config-CacheLineSize](./src/assets/Config-CacheLineSize.png)
-
-Available in from 2 to 64 words which affects the miss penalty and the access time calculations of the simulation.
-
-### Cache Blocks
-
-![Config-CacheBlocks](./src/assets/Config-CacheBlocks.png)
-
-This usually determines n for the simulation patterns and how the blocks will be in sets of 4. Available from 4 to 128 blocks.
-
-### Test Sequence
-
-![Config-TestSequence](./src/assets/Config-TestSequence.png)
-
-This sets the test case sequence that will be used for the simulation. Available ones are Sequential (2n, x2) where n is the number of cache blocks set, Mid Repeat Sequence (x2) which also depends on the cache blocks set and Random (64 blocks) which is a fixed 64 block call from 1024 main memory blocks set as a constant.
-
-### Algorithm
-
-![Config-Algorithm](./src/assets/Config-Algorithm.png)
-
-This determines which cache algorithm will be used for the simulation. Available in BSA + LRU and BSA + MRU.
-
-### View Mode
-
-![Config-ViewMode](./src/assets/Config-ViewMode.png)
-
-Two view modes are available: Step-by-Step which allows the user to see the cache blocks call one by one from start to end of the simulation and Final Snapshot which allows the user to just see the result of teh cache at the end of the simulation.
-
-### Constants
-
-![Config-Contants](./src/assets/Config-Constants.png)
-
-This section shows the constant variables for the simulation including: Main Memory Block = 1024 blocks, Associativity = 4-way, Sets = automatically updated depending on the number cache blocks set by the users and Cache Size = automatically updated depending on the cache line size and cache blocks set. These are used for the calculation of the stats and for the test sequence.
-
-## Stats
-
-![Stats](./src/assets/Stats.png)
-
-This shows the current state of the cache simulation with the number memory accesses, cache hits, cache misses, cache hit rate and cache miss rate. This also has the calculation for the miss penalty dependent on the cache line size, average access time and total access time.
-
-## Cache Simulator
-
-![Config-CacheSim](./src/assets/CacheSim.png)
-
-This simulates the memory accesses, cache hits and cache misses of the sequence. If users are in Step-by-Step mode, they have the ability to scrub through the simulation using the controls provided.
-
-### Cache State
-
-![CacheSim-CacheState](./src/assets/CacheSim-CacheState.png)
-
-This shows the current step of the cache simulation, the feedback log on whether the access was a cache hit or miss, where the block is stored and during misses, it also shows which cache block got evicted.
-
-### Controller
-
-![CacheSim-Controller](./src/assets/CacheSim-Controller.png)
-
-If users are in Step-by-Step mode, this will be available for them to take control on when to pause, play, move forward, move backward, move to start and move to end in the simulation sequence.
-
-### Cache Table
-
-![CacheSim-Table](./src/assets/CacheSim-Table.png)
-
-This is the simulated cache with the sets and the blocks labelled as Sets on the first column and Ways on the first row. This shows how the blocks get accessed and replaced. The result should be the final snapshot of the cache simulation for the given sequence based on the Trace Log.
-
-## Trace Log
-
-![TraceLog](./src/assets/TraceLog.png)
-
-This table shows the history of the simulation sequence for each accesses made. It stores the following information: # of the sequence, block accessed, set and way stored/found, result if it's a cache hit or miss, evicted block if it misses, and # of hits and misses currently at that call.
-
-# How To Use
-
-[Video Walkthrough](https://www.youtube.com/watch?v=k4wdMjGY5P8)
-
-1. Go to this [site](https://cache-memory-simulation-mu.vercel.app/)
-2. Set the Cache Line Size. This will determine the miss penalty and will have an effect on the average and total access times.
-3. Set the Cache Blocks. This will determine n for sequences that require n like Sequential (2n, x2). This also determines how many blocks are in the set and how many blocks are there overall in the cache.
-4. Set the Test Sequence. This will determine what sequence will be used for the simulation.
-5. Choose an Algorithm.
-6. Set the View Mode.
-7. Press Start.
-8. If you chose Step-by-Step for the View Mode in Step #5, then you can use the controller to scrub through the simulation.
-9. Once done, try new configurations and restart the simuation to see the results.
 
 # Misc
 
